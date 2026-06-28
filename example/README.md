@@ -1,6 +1,6 @@
-# ffmpeg_native_lib_example
+# example
 
-Demonstrates how to use the ffmpeg_native_lib package.
+A new Flutter project.
 
 ## Getting Started
 

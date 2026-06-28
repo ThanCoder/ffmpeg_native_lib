@@ -4,13 +4,28 @@ description: |
   Bindings for `src/ffmpeg_native_lib.h`.
 
   Regenerate bindings with `dart run ffigen --config ffigen.yaml`.
-output: 'lib/ffmpeg_native_lib_bindings_generated.dart'
+output: "lib/ffmpeg_native_lib_bindings_generated.dart"
 headers:
   entry-points:
-    - 'src/ffmpeg_native_lib.h'
+    - "src/include/libavcodec/avcodec.h"
+    - "src/include/libavdevice/avdevice.h"
+    - "src/include/libavfilter/avfilter.h"
+    - "src/include/libavformat/avformat.h"
+    - "src/include/libavutil/avutil.h"
+    - "src/include/libswresample/swresample.h"
+    - "src/include/libswscale/swscale.h"
   include-directives:
-    - 'src/ffmpeg_native_lib.h'
+    - "src/include/libavcodec/**"
+    - "src/include/libavdevice/**"
+    - "src/include/libavfilter/**"
+    - "src/include/libavformat/**"
+    - "src/include/libavutil/**"
+    - "src/include/libswresample/**"
+    - "src/include/libswscale/**"
 ffi-native:
 comments:
   style: any
   length: full
+compiler-opts:
+  - "-D__STDC_CONSTANT_MACROS"
+  - "-Isrc/include" # သင့်ရဲ့ header folder အဓိက လမ်းကြောင်းကိုလည်း လမ်းညွှန်ပေးပါ

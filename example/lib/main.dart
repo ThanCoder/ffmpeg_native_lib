@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:ffmpeg_native_lib/ffmpeg_native_lib.dart' as ffmpeg_native_lib;
+import 'package:ffmpeg_native_lib/ffmpeg_native_lib.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(home: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -15,58 +13,45 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late int sumResult;
-  late Future<int> sumAsyncResult;
-
-  @override
-  void initState() {
-    super.initState();
-    sumResult = ffmpeg_native_lib.sum(1, 2);
-    sumAsyncResult = ffmpeg_native_lib.sumAsync(3, 4);
-  }
+  final result = StringBuffer();
 
   @override
   Widget build(BuildContext context) {
-    const textStyle = TextStyle(fontSize: 25);
-    const spacerSmall = SizedBox(height: 10);
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Native Packages')),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const .all(10),
-            child: Column(
-              children: [
-                const Text(
-                  'This calls a native function through FFI that is shipped as source in the package. '
-                  'The native code is built as part of the Flutter Runner build.',
-                  style: textStyle,
-                  textAlign: .center,
-                ),
-                spacerSmall,
-                Text(
-                  'sum(1, 2) = $sumResult',
-                  style: textStyle,
-                  textAlign: .center,
-                ),
-                spacerSmall,
-                FutureBuilder<int>(
-                  future: sumAsyncResult,
-                  builder: (BuildContext context, AsyncSnapshot<int> value) {
-                    final displayValue = (value.hasData)
-                        ? value.data
-                        : 'loading';
-                    return Text(
-                      'await sumAsync(3, 4) = $displayValue',
-                      style: textStyle,
-                      textAlign: .center,
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
+    return Scaffold(
+      appBar: AppBar(title: Text('FFMpeg Native Lib')),
+      body: SingleChildScrollView(child: Text(result.toString())),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          result.clear();
+          result.writeln('**************Version****************');
+          result.writeln('avVersionInfo: $avVersionInfo');
+          result.writeln('avutilVersion: $avutilVersion');
+          result.writeln('avcodecVersion: $avcodecVersion');
+          result.writeln('swscaleVersion: $swscaleVersion');
+          result.writeln('avdeviceVersion: $avdeviceVersion');
+          result.writeln('avfilterVersion: $avfilterVersion');
+          result.writeln('avformatVersion: $avformatVersion');
+          result.writeln('**************Configure****************');
+          //**************Configure**** */
+          result.writeln('**************avutilConfiguration****************');
+          result.writeln('avutilConfiguration: $avutilConfiguration');
+          result.writeln(
+            '**************swresampleConfiguration****************',
+          );
+          result.writeln('swresampleConfiguration: $swresampleConfiguration');
+          result.writeln('**************avcodecConfiguration****************');
+          result.writeln('avcodecConfiguration: $avcodecConfiguration');
+          result.writeln('**************swscaleConfiguration****************');
+          result.writeln('swscaleConfiguration: $swscaleConfiguration');
+          result.writeln('**************avdeviceConfiguration****************');
+          result.writeln('avdeviceConfiguration: $avdeviceConfiguration');
+          result.writeln('**************avfilterConfiguration****************');
+          result.writeln('avfilterConfiguration: $avfilterConfiguration');
+          result.writeln('**************avformatConfiguration****************');
+          result.writeln('avformatConfiguration: $avformatConfiguration');
+          // debugPrint(result.toString());
+          setState(() {});
+        },
       ),
     );
   }
